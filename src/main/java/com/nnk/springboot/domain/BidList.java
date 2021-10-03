@@ -26,9 +26,11 @@ public class BidList {
     private Integer bidListId;
 
     @Column(name = "account", columnDefinition = "varchar(30)", nullable = false)
+    @NotBlank(message = "Account is mandatory")
     private String account;
 
     @Column(name = "type", columnDefinition = "varchar(30)", nullable = false)
+    @NotBlank(message = "Type is mandatory")
     private String type;
 
     @Column(name = "bidQuantity")
