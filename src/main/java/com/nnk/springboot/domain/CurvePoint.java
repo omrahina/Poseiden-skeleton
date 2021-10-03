@@ -39,4 +39,10 @@ public class CurvePoint {
 
     @Column(name = "creationDate")
     private LocalDate creationDate;
+
+    public CurvePoint(int curveId, double term, double value) {
+        this.curveId = curveId;
+        this.term = term;
+        this.value = value;
+    }
 }

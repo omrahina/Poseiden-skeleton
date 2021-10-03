@@ -90,9 +90,9 @@ public class BidList {
     @Column(name = "side", columnDefinition = "varchar(125)")
     private String side;
 
-    public BidList(String account, String type, double bid) {
+    public BidList(String account, String type, double bidQuantity) {
         this.account = account;
         this.type = type;
-        this.bid = bid; //Is that really bid? Not bidQuantity or ask....?
+        this.bidQuantity = bidQuantity;
     }
 }
