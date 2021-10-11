@@ -24,21 +24,42 @@
 		</div>
 	</div>
 	<div class="row"><h2>Bid List</h2></div>
+	<th:block th:if="${error != null}">
+		<div class="row card border-danger mb-2">
+			<div class="card-body">
+				<div th:utext="${error}" class="card-text text-danger"></div>
+			</div>
+		</div>
+	</th:block>
 	<div class="row">
 		<a href="/bidList/add" class="btn btn-primary btn-sm">Add New</a>
+
 		<table class="table table-bordered">
 			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Account</th>
-					<th>Type</th>
-					<th>Bid Quantity</th>
-					<th>Action</th>
-				</tr>
+			<tr>
+				<th>Id</th>
+				<th>Account</th>
+				<th>Type</th>
+				<th>Bid Quantity</th>
+				<th>Action</th>
+			</tr>
 			</thead>
-			<tbody>
+			<th:block th:if="${!#lists.isEmpty(bidList)}">
+				<tbody>
 				<!-- TODO: Show all Bids to the table, the Action column will have Edit & Delete buttons -->
-			</tbody>
+				<tr th:each="bid : ${bidList}">
+					<td th:text="${bid.bidListId}"></td>
+					<td th:text="${bid.account}"></td>
+					<td th:text="${bid.type}"></td>
+					<td th:text="${bid.bidQuantity}"></td>
+					<td class="text-center">
+						<a th:href="@{|/bidList/update/${bid.bidListId}|}">Edit</a>
+						<span>|</span>
+						<a th:href="@{|/bidList/delete/${bid.bidListId}|}">Delete</a>
+					</td>
+				</tr>
+				</tbody>
+			</th:block>
 		</table>
 	</div>
 </div>

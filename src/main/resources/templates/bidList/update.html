@@ -13,10 +13,37 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/bidList/update/{id}(id=${bidList.bidListId})}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
+		<form action="#" th:action="@{/bidList/update/{id}(id=${bidList.bidListId})}" th:object="${bidList}" method="post" class="w-50">
 			<!--
 			TODO: Create a form to edit the values of Bid, there are 2 buttons: Update data and Cancel to the list Bid
 			 -->
+
+			<div class="form-group">
+				<label for="account">Account</label>
+				<input type="text" name="account" id="account" th:field="*{account}" th:value="*{account}"
+					   class="form-control" maxlength="30" placeholder="Account">
+				<small class="text-danger" th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></small>
+			</div>
+			<div class="form-group">
+				<label for="type">Type</label>
+				<input type="text" name="type" id="type" th:field="*{type}" th:value="*{type}"
+					   class="form-control" maxlength="30" placeholder="Type">
+				<small class="text-danger" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></small>
+			</div>
+			<div class="form-group">
+				<label for="bidQuantity">Type</label>
+				<input type="text" name="bidQuantity" id="bidQuantity" th:field="*{bidQuantity}" th:value="*{bidQuantity}"
+					   class="form-control" placeholder="Bid quantity">
+			</div>
+			<div class="d-flex justify-content-center">
+				<button class="btn btn-danger mr-3" type="button"
+						th:onclick="|window.location.href='/bidList/list'|">
+					<span>Cancel</span>
+				</button>
+				<button class="btn btn-primary" type="submit">
+					<span>Update BidList</span>
+				</button>
+			</div>
 		</form>
 	</div>
 

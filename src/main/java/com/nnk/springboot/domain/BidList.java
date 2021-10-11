@@ -3,13 +3,9 @@ package com.nnk.springboot.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @Entity
@@ -22,7 +18,7 @@ public class BidList {
 
     @Id
     @Column(name = "BidListId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer bidListId;
 
     @Column(name = "account", columnDefinition = "varchar(30)", nullable = false)
