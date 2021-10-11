@@ -22,10 +22,11 @@ public class CurvePoint {
 
     @Id
     @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(name = "CurveId")
+    @NotNull(message = "must not be null")
     private Integer curveId;
 
     @Column(name = "asOfDate")
