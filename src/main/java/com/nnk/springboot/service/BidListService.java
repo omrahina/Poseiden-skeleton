@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -64,15 +63,10 @@ public class BidListService {
         return null;
     }
 
-    public void deleteBidList(BidList bid){
-        bidListRepository.delete(bid);
-        log.info("Bid deleted");
-    }
-
     public void deleteBidList(int id){
-        Optional<BidList> bid = bidListRepository.findById(id);
-        if (bid.isPresent()){
-            bidListRepository.delete(bid.get());
+        BidList bid = bidListRepository.findBidListByBidListId(id);
+        if (bid != null){
+            bidListRepository.delete(bid);
             log.info("Bid deleted");
         } else {
             log.error("No bid found. Deletion failure.");

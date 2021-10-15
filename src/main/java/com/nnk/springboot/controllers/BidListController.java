@@ -70,7 +70,7 @@ public class BidListController {
     public String updateBid(@PathVariable("id") Integer id, @Valid @ModelAttribute("bidList") BidList bidList,
                              BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Bid and return list Bid
-        bidList.setBidListId(id); //Why did bidList lose its Id?
+        bidList.setBidListId(id);
         if (result.hasErrors()){
             log.error("Error(s) in the form");
             model.addAttribute("bidList", bidList);
@@ -83,13 +83,8 @@ public class BidListController {
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Bid by Id and delete the bid, return to Bid list
-        BidList bid = bidListService.getBidList(id);
-        if (bid != null){
-            bidListService.deleteBidList(bid);
-        } else {
-            log.error("No bid found. Deletion failure.");
-        }
-//        bidListService.deleteBidList(id);
+        log.info("Request delete bid");
+        bidListService.deleteBidList(id);
         return "redirect:/bidList/list";
     }
 }
