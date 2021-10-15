@@ -3,6 +3,7 @@ package com.nnk.springboot.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -18,25 +19,31 @@ public class RuleName {
 
     @Id
     @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "name", columnDefinition = "varchar(125)")
+    @Column(name = "name")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String name;
 
-    @Column(name = "description", columnDefinition = "varchar(125)")
+    @Column(name = "description")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String description;
 
-    @Column(name = "json", columnDefinition = "varchar(125)")
+    @Column(name = "json")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String json;
 
-    @Column(name = "template", columnDefinition = "varchar(512)")
+    @Column(name = "template")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String template;
 
-    @Column(name = "sqlStr", columnDefinition = "varchar(125)")
+    @Column(name = "sqlStr")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String sqlStr;
 
-    @Column(name = "sqlPart", columnDefinition = "varchar(125)")
+    @Column(name = "sqlPart")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String sqlPart;
 
     public RuleName(String name, String description, String json, String template, String sql, String sqlPart) {

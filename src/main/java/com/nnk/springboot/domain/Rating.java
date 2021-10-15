@@ -3,11 +3,9 @@ package com.nnk.springboot.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "rating")
@@ -19,16 +17,19 @@ public class Rating {
 
     @Id
     @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "moodysRating", columnDefinition = "varchar(125)")
+    @Column(name = "moodysRating")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String moodysRating;
 
-    @Column(name = "sandPRating", columnDefinition = "varchar(125)")
+    @Column(name = "sandPRating")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String sandPRating;
 
-    @Column(name = "fitchRating", columnDefinition = "varchar(125)")
+    @Column(name = "fitchRating")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String fitchRating;
 
     @Column(name = "orderNumber")

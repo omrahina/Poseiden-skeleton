@@ -3,6 +3,7 @@ package com.nnk.springboot.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -21,12 +22,14 @@ public class BidList {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer bidListId;
 
-    @Column(name = "account", columnDefinition = "varchar(30)", nullable = false)
+    @Column(name = "account")
     @NotBlank(message = "Account is mandatory")
+    @Length(max = 30,  message = "must not exceed 30 characters")
     private String account;
 
-    @Column(name = "type", columnDefinition = "varchar(30)", nullable = false)
+    @Column(name = "type")
     @NotBlank(message = "Type is mandatory")
+    @Length(max = 30,  message = "must not exceed 30 characters")
     private String type;
 
     @Column(name = "bidQuantity")
@@ -41,49 +44,61 @@ public class BidList {
     @Column(name = "ask")
     private Double ask;
 
-    @Column(name = "benchmark", columnDefinition = "varchar(125)")
+    @Column(name = "benchmark")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String benchMark;
 
     @Column(name = "bidListDate")
     private LocalDate bidListDate;
 
-    @Column(name = "commentary", columnDefinition = "varchar(125)")
+    @Column(name = "commentary")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String commentary;
 
-    @Column(name = "security", columnDefinition = "varchar(125)")
+    @Column(name = "security")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String security;
 
-    @Column(name = "status", columnDefinition = "varchar(10)")
+    @Column(name = "status")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String status;
 
-    @Column(name = "trader", columnDefinition = "varchar(125)")
+    @Column(name = "trader")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String trader;
 
-    @Column(name = "book", columnDefinition = "varchar(125)")
+    @Column(name = "book")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String book;
 
-    @Column(name = "creationName", columnDefinition = "varchar(125)")
+    @Column(name = "creationName")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String creationName;
 
     @Column(name = "creationDate")
     private LocalDate creationDate;
 
-    @Column(name = "revisionName", columnDefinition = "varchar(125)")
+    @Column(name = "revisionName")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String revisionName;
 
     @Column(name = "revisionDate")
     private LocalDate revisionDate;
 
-    @Column(name = "dealName", columnDefinition = "varchar(125)")
+    @Column(name = "dealName")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String dealName;
 
-    @Column(name = "dealType", columnDefinition = "varchar(125)")
+    @Column(name = "dealType")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String dealType;
 
-    @Column(name = "sourceListId", columnDefinition = "varchar(125)")
+    @Column(name = "sourceListId")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String sourceListId;
 
-    @Column(name = "side", columnDefinition = "varchar(125)")
+    @Column(name = "side")
+    @Length(max = 125, message = "must not exceed 125 characters")
     private String side;
 
     public BidList(String account, String type, double bidQuantity) {
