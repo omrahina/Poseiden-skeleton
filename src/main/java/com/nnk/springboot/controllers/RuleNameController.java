@@ -38,7 +38,7 @@ public class RuleNameController {
     }
 
     @GetMapping("/ruleName/add")
-    public String addRuleForm(RuleName bid) {
+    public String addRuleForm(RuleName ruleName) {
         log.info("Request add ruleName");
         return "ruleName/add";
     }
@@ -57,7 +57,7 @@ public class RuleNameController {
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get RuleName by Id and to model then show to the form
-        log.info("Request add ruleName");
+        log.info("Request update ruleName");
         RuleName ruleName = ruleNameService.getRuleName(id);
         if (ruleName != null){
             model.addAttribute("ruleName", ruleName);
