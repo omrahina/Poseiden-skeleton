@@ -61,7 +61,7 @@ public class RatingService {
         log.info("Rating deleted");
     }
 
-    public Rating getRating(Integer id) {
+    public Rating getRating(int id) {
         Rating rating = ratingRepository.findRatingById(id);
         if (rating != null){
             log.info("Rating found");

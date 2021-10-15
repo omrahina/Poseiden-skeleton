@@ -14,10 +14,55 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/ruleName/update/{id}(id=${ruleName.id})}" th:object="${ruleName}" method="post" class="form-horizontal" style="width: 100%">
+		<form action="#" th:action="@{/ruleName/update/{id}(id=${ruleName.id})}" th:object="${ruleName}" method="post" class="w-50">
 			<!--
 			TODO: Create a form to edit the values of RuleName, there are 2 buttons: Update data and Cancel to the RuleName
 			 -->
+			<div class="form-group">
+				<label for="name">Name</label>
+				<input type="text" name="name" id="name" th:field="*{name}"
+					   class="form-control" placeholder="Name">
+				<small class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+			</div>
+			<div class="form-group">
+				<label for="description">Description</label>
+				<input type="text" name="description" id="description" th:field="*{description}"
+					   class="form-control" placeholder="Description">
+				<small class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></small>
+			</div>
+			<div class="form-group">
+				<label for="json">Json</label>
+				<input type="text" name="json" id="json" th:field="*{json}"
+					   class="form-control" placeholder="Json">
+				<small class="text-danger" th:if="${#fields.hasErrors('json')}" th:errors="*{json}"></small>
+			</div>
+			<div class="form-group">
+				<label for="template">Template</label>
+				<input type="text" name="template" id="template" th:field="*{template}"
+					   class="form-control" placeholder="Template">
+				<small class="text-danger" th:if="${#fields.hasErrors('template')}" th:errors="*{template}"></small>
+			</div>
+			<div class="form-group">
+				<label for="sqlStr">Sql</label>
+				<input type="text" name="sqlStr" id="sqlStr" th:field="*{sqlStr}"
+					   class="form-control" placeholder="Sql">
+				<small class="text-danger" th:if="${#fields.hasErrors('sqlStr')}" th:errors="*{sqlStr}"></small>
+			</div>
+			<div class="form-group">
+				<label for="sqlPart">SqlPart</label>
+				<input type="text" name="sqlPart" id="sqlPart" th:field="*{sqlPart}"
+					   class="form-control" placeholder="SqlPart">
+				<small class="text-danger" th:if="${#fields.hasErrors('sqlPart')}" th:errors="*{sqlPart}"></small>
+			</div>
+			<div class="d-flex justify-content-center">
+				<button class="btn btn-danger mr-3" id="cancel" type="button"
+						th:onclick="|window.location.href='/ruleName/list'|">
+					<span>Cancel</span>
+				</button>
+				<button class="btn btn-primary" id="save" type="submit">
+					<span>Update Rule</span>
+				</button>
+			</div>
 
 		</form>
 	</div>
