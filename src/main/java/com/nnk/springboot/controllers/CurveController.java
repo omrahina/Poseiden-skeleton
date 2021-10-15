@@ -79,12 +79,8 @@ public class CurveController {
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Curve by Id and delete the Curve, return to Curve list
-        CurvePoint curvePoint = curvePointService.getCurvePoint(id);
-        if (curvePoint != null){
-            curvePointService.deleteCurvePoint(curvePoint);
-        } else {
-            log.error("Deletion failure");
-        }
+        log.info("Request delete curvePoint");
+        curvePointService.deleteCurvePoint(id);
         return "redirect:/curvePoint/list";
     }
 }
