@@ -35,4 +35,11 @@ public class User {
     @NotBlank(message = "Role is mandatory")
     private String role;
 
+    public User (String username, String password, String fullName, String role){
+        this.username = username;
+        this.password = password;
+        this.fullName = fullName;
+        this.role = role;
+    }
+
 }
