@@ -63,13 +63,14 @@ public class BidListService {
         return null;
     }
 
-    public void deleteBidList(int id){
+    public boolean deleteBidList(int id){
         BidList bid = bidListRepository.findBidListByBidListId(id);
         if (bid != null){
             bidListRepository.delete(bid);
             log.info("Bid deleted");
-        } else {
-            log.error("No bid found. Deletion failure.");
+            return true;
         }
+        log.error("No bid found. Deletion failure.");
+        return false;
     }
 }
