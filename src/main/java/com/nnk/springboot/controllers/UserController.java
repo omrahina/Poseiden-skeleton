@@ -34,11 +34,14 @@ public class UserController {
     @PostMapping("/user/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
         if (!result.hasErrors()) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(user.getPassword()));
-            userRepository.save(user);
-            model.addAttribute("users", userRepository.findAll());
-            return "redirect:/user/list";
+            if (userRepository.findUserByUsername(user.getUsername()) == null){
+                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                user.setPassword(encoder.encode(user.getPassword()));
+                userRepository.save(user);
+                model.addAttribute("users", userRepository.findAll());
+                return "redirect:/user/list";
+            }
+            model.addAttribute("error", "An account for that username already exists.");
         }
         return "user/add";
     }
@@ -54,16 +57,20 @@ public class UserController {
     @PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "user/update";
+        if (!result.hasErrors()) {
+            User existingUser = userRepository.findUserByUsername(user.getUsername());
+            if (existingUser == null || (id.equals(existingUser.getId()))){
+                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                user.setPassword(encoder.encode(user.getPassword()));
+                user.setId(id);
+                userRepository.save(user);
+                model.addAttribute("users", userRepository.findAll());
+                return "redirect:/user/list";
+            }
+            model.addAttribute("error", "An account for that username already exists.");
         }
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setId(id);
-        userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
-        return "redirect:/user/list";
+        return "user/update";
     }
 
     @GetMapping("/user/delete/{id}")
