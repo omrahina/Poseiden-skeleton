@@ -50,15 +50,15 @@ public class RatingService {
         return null;
     }
 
-    public void deleteRating(int id){
+    public boolean deleteRating(int id){
         Rating rating = ratingRepository.findRatingById(id);
         if (rating != null){
             ratingRepository.delete(rating);
-        } else {
-            log.error("Deletion failure");
+            log.info("Rating deleted");
+            return true;
         }
-
-        log.info("Rating deleted");
+        log.error("Deletion failure");
+        return false;
     }
 
     public Rating getRating(int id) {

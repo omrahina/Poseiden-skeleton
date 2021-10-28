@@ -59,13 +59,14 @@ public class TradeService {
         return null;
     }
 
-    public void deleteTrade(int id){
+    public boolean deleteTrade(int id){
         Trade trade = tradeRepository.findTradeByTradeId(id);
         if (trade != null){
             tradeRepository.delete(trade);
             log.info("Trade successfully deleted.");
-        } else {
-            log.error("Deletion failure");
+            return true;
         }
+        log.error("Deletion failure");
+        return false;
     }
 }

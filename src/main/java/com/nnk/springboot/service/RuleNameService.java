@@ -62,13 +62,14 @@ public class RuleNameService {
         return null;
     }
 
-    public void deleteRuleName(int id){
+    public boolean deleteRuleName(int id){
         RuleName ruleName = ruleNameRepository.findRuleNameById(id);
         if (ruleName != null){
             ruleNameRepository.delete(ruleName);
             log.info("RuleName successfully deleted.");
-        } else {
-            log.error("Deletion failure");
+            return true;
         }
+        log.error("Deletion failure");
+        return false;
     }
 }

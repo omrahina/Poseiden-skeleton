@@ -59,13 +59,14 @@ public class CurvePointService {
 
     }
 
-    public void deleteCurvePoint(int id){
+    public boolean deleteCurvePoint(int id){
         CurvePoint curvePoint = curvePointRepository.findCurvePointById(id);
         if (curvePoint != null){
             curvePointRepository.delete(curvePoint);
             log.info("CurvePoint successfully deleted.");
-        } else {
-            log.error("Deletion failure");
+            return true;
         }
+        log.error("Deletion failure");
+        return false;
     }
 }
