@@ -2,6 +2,7 @@ package com.nnk.springboot.controller;
 
 import com.nnk.springboot.controllers.UserController;
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.dto.UserDto;
 import com.nnk.springboot.repositories.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -57,22 +57,23 @@ public class UserControllerTest {
 
     @Test
     public void save_user_and_redirect_user_list() throws Exception {
-        User user = new User("username", new BCryptPasswordEncoder().encode("password"), "fullname", "USER");
-        when(userRepository.findAll()).thenReturn(List.of(user));
-        when(userRepository.save(any(User.class))).thenReturn(user);
+        UserDto userDto = new UserDto(1, "username", "123456B#", "fullname", "USER");
+        when(userRepository.findAll()).thenReturn(List.of(new User()));
+        when(userRepository.save(any(User.class))).thenReturn(new User());
         mockMvc.perform(MockMvcRequestBuilders.post("/user/validate")
-                .flashAttr("user", user))
+                .flashAttr("userDto", userDto))
                 .andExpect(status().isFound())
                 .andExpect(redirectedUrl("/user/list"));
     }
 
     @Test
     public void save_user_form_error() throws Exception {
-        User user = new User();
+        UserDto userDto = new UserDto();
+        userDto.setPassword("12345678");
         mockMvc.perform(MockMvcRequestBuilders.post("/user/validate")
-                .flashAttr("user", user))
+                .flashAttr("userDto", userDto))
                 .andExpect(model().hasErrors())
-                .andExpect(model().attributeHasFieldErrors("user", "username", "password", "fullName", "role"))
+                .andExpect(model().attributeHasFieldErrors("userDto", "username", "password", "fullName", "role"))
                 .andExpect(view().name("user/add"));
     }
 
@@ -87,11 +88,11 @@ public class UserControllerTest {
 
     @Test
     public void update_user_ok() throws Exception {
-        User user = new User("username", new BCryptPasswordEncoder().encode("password"), "fullname", "USER");
-        when(userRepository.findAll()).thenReturn(List.of(user));
-        when(userRepository.save(any(User.class))).thenReturn(user);
+        UserDto userDto = new UserDto(1, "username", "123456B#", "fullname", "USER");
+        when(userRepository.findAll()).thenReturn(List.of(new User()));
+        when(userRepository.save(any(User.class))).thenReturn(new User());
         mockMvc.perform(MockMvcRequestBuilders.post("/user/update/1")
-                .flashAttr("user", user))
+                .flashAttr("userDto", userDto))
                 .andExpect(status().isFound())
                 .andExpect(model().hasNoErrors())
                 .andExpect(redirectedUrl("/user/list"));
@@ -99,12 +100,12 @@ public class UserControllerTest {
 
     @Test
     public void update_user_error() throws Exception {
-        User user = new User("", new BCryptPasswordEncoder().encode("password"), "fullname", "USER");
+        UserDto userDto = new UserDto(1, "", "password", "fullname", "USER");
         mockMvc.perform(MockMvcRequestBuilders.post("/user/update/1")
-                .flashAttr("user", user))
+                .flashAttr("userDto", userDto))
                 .andExpect(status().isOk())
                 .andExpect(model().hasErrors())
-                .andExpect(model().attributeHasFieldErrors("user", "username"))
+                .andExpect(model().attributeHasFieldErrors("userDto", "username", "password"))
                 .andExpect(view().name("user/update"));
     }
 
