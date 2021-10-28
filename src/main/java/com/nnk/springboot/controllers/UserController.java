@@ -1,6 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.dto.UserDto;
 import com.nnk.springboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,13 +28,14 @@ public class UserController {
     }
 
     @GetMapping("/user/add")
-    public String addUser(User bid) {
+    public String addUser(UserDto userDto) {
         return "user/add";
     }
 
     @PostMapping("/user/validate")
-    public String validate(@Valid User user, BindingResult result, Model model) {
+    public String validate(@Valid UserDto userDto, BindingResult result, Model model) {
         if (!result.hasErrors()) {
+            User user = new User(userDto.getUsername(), userDto.getPassword(), userDto.getFullName(), userDto.getRole());
             if (userRepository.findUserByUsername(user.getUsername()) == null){
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
                 user.setPassword(encoder.encode(user.getPassword()));
@@ -49,20 +51,20 @@ public class UserController {
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        user.setPassword("");
-        model.addAttribute("user", user);
+        UserDto userDto = new UserDto(id, user.getUsername(), "", user.getFullName(), user.getRole());
+        model.addAttribute("userDto", userDto);
         return "user/update";
     }
 
     @PostMapping("/user/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @Valid User user,
+    public String updateUser(@PathVariable("id") Integer id, @Valid UserDto userDto,
                              BindingResult result, Model model) {
         if (!result.hasErrors()) {
-            User existingUser = userRepository.findUserByUsername(user.getUsername());
+            User existingUser = userRepository.findUserByUsername(userDto.getUsername());
             if (existingUser == null || (id.equals(existingUser.getId()))){
+                User user = new User(id, userDto.getUsername(), "",  userDto.getFullName(), userDto.getRole());
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-                user.setPassword(encoder.encode(user.getPassword()));
-                user.setId(id);
+                user.setPassword(encoder.encode(userDto.getPassword()));
                 userRepository.save(user);
                 model.addAttribute("users", userRepository.findAll());
                 return "redirect:/user/list";
