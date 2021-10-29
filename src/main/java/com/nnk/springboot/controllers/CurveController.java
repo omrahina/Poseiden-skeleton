@@ -3,7 +3,6 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.service.CurvePointService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,8 +18,12 @@ import java.util.List;
 @Slf4j
 public class CurveController {
     // TODO: Inject Curve Point service
-    @Autowired
-    private CurvePointService curvePointService;
+
+    private final CurvePointService curvePointService;
+
+    public CurveController(CurvePointService curvePointService){
+        this.curvePointService = curvePointService;
+    }
 
     @RequestMapping("/curvePoint/list")
     public String home(Model model)

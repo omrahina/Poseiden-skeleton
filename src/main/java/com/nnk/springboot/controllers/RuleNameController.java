@@ -20,8 +20,11 @@ import java.util.List;
 public class RuleNameController {
     // TODO: Inject RuleName service
 
-    @Autowired
-    private RuleNameService ruleNameService;
+    private final RuleNameService ruleNameService;
+
+    public RuleNameController(RuleNameService ruleNameService){
+        this.ruleNameService = ruleNameService;
+    }
 
     @RequestMapping("/ruleName/list")
     public String home(Model model)

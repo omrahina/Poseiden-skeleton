@@ -3,7 +3,6 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.service.RatingService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,8 +19,11 @@ import java.util.List;
 public class RatingController {
     // TODO: Inject Rating service
 
-    @Autowired
-    private RatingService ratingService;
+    private final RatingService ratingService;
+
+    public RatingController(RatingService ratingService){
+        this.ratingService = ratingService;
+    }
 
     @RequestMapping("/rating/list")
     public String home(Model model)

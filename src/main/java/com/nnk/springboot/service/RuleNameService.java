@@ -3,7 +3,6 @@ package com.nnk.springboot.service;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +11,11 @@ import java.util.List;
 @Slf4j
 public class RuleNameService {
 
-    @Autowired
-    private RuleNameRepository ruleNameRepository;
+    private final RuleNameRepository ruleNameRepository;
+
+    public RuleNameService(RuleNameRepository ruleNameRepository){
+        this.ruleNameRepository = ruleNameRepository;
+    }
 
     public List<RuleName> getAllRuleName(){
         List<RuleName> ruleNames = ruleNameRepository.findAll();
